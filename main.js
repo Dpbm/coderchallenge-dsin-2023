@@ -1,5 +1,8 @@
 import blessed from 'blessed';
 import { createForm } from './components/form.js';
+import createDB from './db/createDB.js';
+
+createDB();
 
 const menuOptions = ['Adicionar Hospedeiro', 'classificar zumbis', 'Pato'];
 
