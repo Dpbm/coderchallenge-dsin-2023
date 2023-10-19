@@ -83,7 +83,37 @@ export const nonGames = new Set([
 	'nadadejogar',
 ]);
 
+export const intelligenceMusic = new Set([
+	'jazz',
+	'rock',
+	'metal',
+	'blues',
+	'eletronica',
+	'electronic',
+	'classica',
+	'heavymetal',
+	'mpb',
+	'classic',
+	'rb',
+	'pop',
+	'powermetal',
+	'trashmetal',
+]);
+
 export function clearInput(input) {
-	const differentCharacters = /[^a-z]/g;
-	return input.toLowerCase().replaceAll(differentCharacters, '');
+	return input
+		.toLowerCase()
+		.normalize('NFD')
+		.replace(/[\u0300-\u036f]/g, '')
+		.replace(/[^\w\s]|_/g, '')
+		.replace(' ', '');
+}
+
+export function padText(text, size) {
+	const len = text.length;
+
+	if (len < size) text += ' '.repeat(size - len);
+	else if (len > size) return text.substring(0, size - 2) + '..';
+
+	return text;
 }

@@ -1,9 +1,10 @@
 import blessed from 'blessed';
 import createForm from './form.js';
+import createAttributes from './attributes.js';
 
 const menuOptions = ['Adicionar Hospedeiro', 'classificar zumbis', 'Pato'];
 
-export default function menu(screen) {
+export default function createMenu(screen) {
 	const options = blessed.list({
 		parent: screen,
 		top: 'center',
@@ -31,8 +32,9 @@ export default function menu(screen) {
 
 	options.on('action', (item) => {
 		const index = menuOptions.indexOf(item.content);
-		const actions = [createForm];
+		const actions = [createForm, createAttributes];
 		const action = actions[index];
+		options.hide();
 		action(screen, options);
 	});
 

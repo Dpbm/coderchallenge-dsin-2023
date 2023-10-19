@@ -71,6 +71,7 @@ export default function createForm(screen, menu) {
 			fg: 'white',
 			bg: 'red',
 		},
+		zIndex: 10,
 	});
 
 	form.key(['enter'], async () => {
@@ -81,6 +82,7 @@ export default function createForm(screen, menu) {
 			await validate(data);
 			await insertHost(data);
 			screen.remove(form);
+			menu.show();
 			menu.focus();
 			screen.render();
 		} catch (error) {

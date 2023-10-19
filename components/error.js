@@ -11,6 +11,7 @@ export default function errorMessage(screen, message) {
 			bg: 'blue',
 			fg: 'white',
 		},
+		zIndex: 99999999,
 	});
 	messageBox.display('{center}' + message + '{/center}');
 }

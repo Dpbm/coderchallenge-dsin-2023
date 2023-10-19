@@ -1,4 +1,4 @@
-import { clearInput, maleInputs, velocitySports } from '../utils/strings';
+import { clearInput, maleInputs, velocitySports } from '../utils/strings.js';
 
 export default function getVelocity(age, sex, weight, height, sport) {
 	let velocity = 0;
