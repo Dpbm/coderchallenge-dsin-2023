@@ -1,0 +1,47 @@
+<mxfile host="app.diagrams.net" modified="2023-10-19T18:55:54.656Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36" etag="T7vGeyIQbCmpaeHllMf8" version="22.0.5" type="device">
+  <diagram name="Page-1" id="54GUUr27_GdfGrGogteN">
+    <mxGraphModel dx="1434" dy="798" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ifKFWrlw6HJAXA4por_U-17" value="hosts" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="190" y="270" width="230" height="249" as="geometry" />
+        </mxCell>
+        <mxCell id="ifKFWrlw6HJAXA4por_U-18" value="&lt;b&gt;- id INTEGER PK AUTOINCREMENT&lt;/b&gt;&lt;br&gt;- age INTEGER NOT NULL&lt;br&gt;- sex VARCHAR(15) NOT NULL&lt;br&gt;- weigth FLOAT NOT NULL&lt;br&gt;- height FLOAT NOT NULL&lt;br&gt;- blood VARCHAR(4) NOT NULL&lt;br&gt;- music VARCHAR(15) NOT NULL&lt;br&gt;- sport VARCHAR (15) NOT NULL&lt;br&gt;- game VARCHAR(40) NOT NULL&lt;br&gt;- strength INTEGER NOT NULL&lt;br&gt;- velocity INTEGER NOT NULL&lt;br&gt;- intelligence INTEGER NOT NULL&lt;br&gt;-&amp;nbsp;dangerousness INTEGER NOT NULL" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" parent="ifKFWrlw6HJAXA4por_U-17" vertex="1">
+          <mxGeometry y="50" width="230" height="199" as="geometry" />
+        </mxCell>
+        <mxCell id="ifKFWrlw6HJAXA4por_U-19" value="weaknesses" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="540" y="270" width="230" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="ifKFWrlw6HJAXA4por_U-20" value="&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;- id INTEGER PK AUTOINCREMENT&lt;/b&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i&gt;- host_id FK INTEGER NOT NULL&lt;/i&gt;&lt;br&gt;- weakness VARCHAR(30) NOT NULL" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" parent="ifKFWrlw6HJAXA4por_U-19" vertex="1">
+          <mxGeometry y="50" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ifKFWrlw6HJAXA4por_U-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1.014;entryY=0.005;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="ifKFWrlw6HJAXA4por_U-20" target="ifKFWrlw6HJAXA4por_U-18" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="423" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ifKFWrlw6HJAXA4por_U-22" value="weapons" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="540" y="430" width="230" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="ifKFWrlw6HJAXA4por_U-23" value="&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;- id INTEGER PK AUTOINCREMENT&lt;/b&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i&gt;- host_id FK INTEGER NOT NULL&lt;/i&gt;&lt;br&gt;- weapon VARCHAR(15) NOT NULL" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" parent="ifKFWrlw6HJAXA4por_U-22" vertex="1">
+          <mxGeometry y="50" width="230" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ifKFWrlw6HJAXA4por_U-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.704;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="ifKFWrlw6HJAXA4por_U-23" target="ifKFWrlw6HJAXA4por_U-18" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ifKFWrlw6HJAXA4por_U-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="ifKFWrlw6HJAXA4por_U-25" target="ifKFWrlw6HJAXA4por_U-18" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ifKFWrlw6HJAXA4por_U-25" value="defenses" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="190" y="600" width="230" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="ifKFWrlw6HJAXA4por_U-26" value="&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;- id INTEGER PK AUTOINCREMENT&lt;/b&gt;&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;&lt;i&gt;- host_id FK INTEGER NOT NULL&amp;nbsp;&lt;/i&gt;&lt;br&gt;- defense VARCHAR(15) NOT NULL" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" parent="ifKFWrlw6HJAXA4por_U-25" vertex="1">
+          <mxGeometry y="50" width="230" height="70" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

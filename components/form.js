@@ -2,6 +2,10 @@ import blessed from 'blessed';
 import errorMessage from './error.js';
 import validate from '../validation/host.js';
 import insertHost from '../db/insertHost.js';
+import getStrength from '../logic/getStrength.js';
+import getVelocity from '../logic/getVelocity.js';
+import getIntelligence from '../logic/getIntelligence.js';
+import getDangerousness from '../logic/getDangerousness.js';
 
 const labels = [
 	{ label: 'Idade: ', key: 'age' },
@@ -82,12 +86,42 @@ export default function createForm(screen, menu) {
 	}
 
 	form.key('enter', async () => {
-		const data = Object.fromEntries(
+		let data = Object.fromEntries(
 			inputs.map((input) => [input.name, input.value || null])
 		);
 		try {
 			await validate(data);
-			await insertHost(data);
+
+			const strength = getStrength(
+				data.age,
+				data.sex,
+				data.weight,
+				data.height,
+				data.sport
+			);
+			const velocity = getVelocity(
+				data.age,
+				data.sex,
+				data.weight,
+				data.height,
+				data.sport
+			);
+			const intelligence = getIntelligence(
+				data.age,
+				data.sex,
+				data.music,
+				data.sport,
+				data.game
+			);
+			const dangerousness = getDangerousness(
+				strength,
+				velocity,
+				intelligence
+			);
+
+			data = { ...data, strength, velocity, intelligence, dangerousness };
+
+			const id = await insertHost(data);
 			back();
 		} catch (error) {
 			const message = error?.inner

@@ -1,13 +1,27 @@
 import db from './getDB.js';
-import getVelocity from '../logic/getVelocity.js';
-import getStrength from '../logic/getStrength.js';
-import getIntelligence from '../logic/getIntelligence.js';
 
 export default function insertHost(data) {
-	const { age, sex, weight, height, blood, music, sport, game } = data;
+	const {
+		age,
+		sex,
+		weight,
+		height,
+		blood,
+		music,
+		sport,
+		game,
+		strength,
+		velocity,
+		intelligence,
+		dangerousness,
+	} = data;
+
 	return new Promise((resolve, reject) => {
 		db.run(
-			`INSERT INTO hosts (age, sex, weight, height, blood, music, sport, game, strength, velocity, intelligence) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+			`
+				INSERT INTO hosts (age, sex, weight, height, blood, music, sport, game, strength, velocity, intelligence, dangerousness) 
+				VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+			`,
 			[
 				age,
 				sex,
@@ -17,13 +31,14 @@ export default function insertHost(data) {
 				music,
 				sport,
 				game,
-				getStrength(age, sex, weight, height, sport),
-				getVelocity(age, sex, weight, height, sport),
-				getIntelligence(age, sex, music, sport, game),
+				strength,
+				velocity,
+				intelligence,
+				dangerousness,
 			],
-			(error) => {
+			function (error) {
 				if (error) reject(error);
-				else resolve();
+				else resolve(this.lastID);
 			}
 		);
 	});
