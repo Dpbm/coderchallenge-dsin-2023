@@ -108,12 +108,3 @@ export function clearInput(input) {
 		.replace(/[^\w\s]|_/g, '')
 		.replace(' ', '');
 }
-
-export function padText(text, size) {
-	const len = text.length;
-
-	if (len < size) text += ' '.repeat(size - len);
-	else if (len > size) return text.substring(0, size - 2) + '..';
-
-	return text;
-}
