@@ -14,7 +14,7 @@ const labels = [
 	{ label: 'Jogo Preferido: ', key: 'game' },
 ];
 
-export function createForm(screen) {
+export default function createForm(screen, menu) {
 	const form = blessed.form({
 		top: 'center',
 		left: 'center',
@@ -81,6 +81,7 @@ export function createForm(screen) {
 			await validate(data);
 			await insertHost(data);
 			screen.remove(form);
+			menu.focus();
 			screen.render();
 		} catch (error) {
 			const message = error?.inner
