@@ -1,6 +1,7 @@
 import blessed from 'blessed';
 import errorMessage from './error.js';
 import validate from '../validation/host.js';
+import insertHost from '../db/insertHost.js';
 
 const labels = [
 	{ label: 'Idade: ', key: 'age' },
@@ -9,7 +10,7 @@ const labels = [
 	{ label: 'Altura: ', key: 'height' },
 	{ label: 'Tipo Sanguíneo: ', key: 'blood' },
 	{ label: 'Gosto Musical: ', key: 'music' },
-	{ label: 'Qual Esporte Pratica: ', key: 'sport' },
+	{ label: 'Que Esporte Pratica: ', key: 'sport' },
 	{ label: 'Jogo Preferido: ', key: 'game' },
 ];
 
@@ -78,8 +79,13 @@ export function createForm(screen) {
 		);
 		try {
 			await validate(data);
+			await insertHost(data);
+			screen.remove(form);
+			screen.render();
 		} catch (error) {
-			const message = error.inner[0].message;
+			const message = error?.inner
+				? error.inner[0].message
+				: 'Erro ao tentar adicionar! Verifique se todos os dados estão corretos';
 			errorMessage(screen, message);
 		}
 	});
