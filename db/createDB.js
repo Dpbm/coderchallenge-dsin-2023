@@ -13,7 +13,10 @@ export default function createDB() {
                 blood VARCHAR(4) NOT NULL,
                 music VARCHAR(15) NOT NULL,
                 sport VARCHAR(15) NOT NULL,
-                game VARCHAR(40) NOT NULL
+                game VARCHAR(40) NOT NULL,
+                strength INTEGER NOT NULL CHECK(strength >= 1 AND strength <= 100),
+                velocity INTEGER NOT NULL CHECK(velocity >= 1 AND velocity <= 100),
+                intelligence INTEGER NOT NULL CHECK(intelligence >= 1 AND intelligence <= 100)
             );
         `,
 		(error) => {

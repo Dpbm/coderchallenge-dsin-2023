@@ -66,7 +66,7 @@ export default function createForm(screen, menu) {
 		parent: form,
 		bottom: 1,
 		left: 'center',
-		content: 'Pressione ENTER para enviar',
+		content: 'Pressione ENTER para enviar ou BACKSPACE para voltar',
 		style: {
 			fg: 'white',
 			bg: 'red',
@@ -74,17 +74,21 @@ export default function createForm(screen, menu) {
 		zIndex: 10,
 	});
 
-	form.key(['enter'], async () => {
+	function back() {
+		screen.remove(form);
+		menu.show();
+		menu.focus();
+		screen.render();
+	}
+
+	form.key('enter', async () => {
 		const data = Object.fromEntries(
 			inputs.map((input) => [input.name, input.value || null])
 		);
 		try {
 			await validate(data);
 			await insertHost(data);
-			screen.remove(form);
-			menu.show();
-			menu.focus();
-			screen.render();
+			back();
 		} catch (error) {
 			const message = error?.inner
 				? error.inner[0].message
@@ -92,6 +96,8 @@ export default function createForm(screen, menu) {
 			errorMessage(screen, message);
 		}
 	});
+
+	screen.key('backspace', back);
 
 	screen.append(form);
 	form.focus();
