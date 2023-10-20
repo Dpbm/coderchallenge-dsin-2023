@@ -31,10 +31,11 @@ export default async function createAttributes(screen, menu) {
 
 	const dataTable = blessed.table({
 		parent: screen,
-		keys: true,
-		scrollable: true,
-		scrollbar: true,
+		width: '100%',
+		height: '90%',
+		noCellBorders: true,
 		pad: 1,
+		top: 'center',
 		left: 'center',
 		border: {
 			type: 'line',
@@ -42,8 +43,8 @@ export default async function createAttributes(screen, menu) {
 		data: hosts,
 	});
 
-	blessed.text({
-		parent: dataTable,
+	const backMessage = blessed.text({
+		parent: screen,
 		bottom: 1,
 		left: 'center',
 		content: 'Pressione BACKSPACE para voltar',
@@ -56,6 +57,7 @@ export default async function createAttributes(screen, menu) {
 
 	screen.key('backspace', () => {
 		screen.remove(dataTable);
+		screen.remove(backMessage);
 		menu.show();
 		menu.focus();
 		screen.render();
