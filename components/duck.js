@@ -1,7 +1,7 @@
 import blessed from 'blessed';
 import errorMessage from './error.js';
 import getTotalZombies from '../db/getTotalZombies.js';
-import random from '../utils/random.js';
+import { randomRange } from '../utils/random.js';
 import getZombieDefenses from '../db/getZombieDefenses.js';
 import getZombieWeakness from '../db/getZombieWeakness.js';
 import getZombieWeapons from '../db/getZombieWeapons.js';
@@ -24,7 +24,7 @@ export default async function createDuck(screen, menu) {
 			return;
 		}
 
-		const id = random(1, totalZombies);
+		const id = randomRange(1, totalZombies);
 
 		const { strength, velocity, intelligence, dangerousness } =
 			await getZombieAttributes(id);
@@ -42,16 +42,21 @@ export default async function createDuck(screen, menu) {
 			.map(({ defense }) => defense)
 			.join(' ou ');
 
-		const hasWeaknesses = weaknesses.length;
+		const hasWeaknesses = weaknesses.length > 0;
+		const hasDefenses = defenses.length > 0;
 
-		text += `${id}.\nSegundo o banco de dados, o zumbi possui força=${strength}, velocidade=${velocity} e inteligência=${intelligence}, possuindo no total periculosidade=${dangerousness}.\n\nPara se defender, ele pode: ${parsedDefenses}.\nSegundo seus dados, ${
+		text += `${id}.\nSegundo o banco de dados, o zumbi possui força=${strength}, velocidade=${velocity} e inteligência=${intelligence}, possuindo no total periculosidade=${dangerousness}.\n\n${
+			hasDefenses
+				? `Para se defender, ele pode: ${parsedDefenses}`
+				: 'Para esse zumbi não é necessário defesas'
+		}.\nSegundo seus dados, ${
 			!hasWeaknesses
 				? 'ele não possui fraquezas, sendo assim o melhor é fugir/se defender!'
 				: ` suas fraquezas são ${parsedWeaknesses}\n${
 						!hasWeaknesses
 							? ''
-							: `Para combater suas fraquezas, há algumas armas para utilizar: ${parsedWeapons}`
-				  }.`
+							: `Para combater suas fraquezas, há algumas armas para utilizar: ${parsedWeapons}.`
+				  }`
 		}`;
 	} catch (error) {
 		errorMessage(

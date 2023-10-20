@@ -1,3 +1,7 @@
-export default function random(min = 0, max) {
+export default function random(max) {
+	return Math.floor(Math.random() * max);
+}
+
+export function randomRange(min, max) {
 	return Math.floor(Math.random() * max) + min;
 }
