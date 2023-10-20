@@ -29,6 +29,7 @@ export const strengthSports = new Set([
 	'box',
 	'muaythai',
 	'muaithai',
+	'jiujitsu',
 	'karate',
 	'kungfu',
 	'academia',
@@ -99,6 +100,46 @@ export const intelligenceMusic = new Set([
 	'powermetal',
 	'trashmetal',
 ]);
+
+export const totalDefenses = 3;
+
+export const velocityDefenses = [
+	'abrir asas e alçar voo',
+	'usar hook gun para fugir',
+	'usar a jetpack',
+];
+
+export const strengthDefenses = [
+	'usar escudo de Adamantium',
+	'criar campo de força',
+	'usar espelhos para engar',
+];
+
+export const intelligenceDefenses = [
+	'criar enigma',
+	'tocar musica clássica alta',
+	'citar uma peça de Shakespeare',
+];
+
+export const totalWeapons = 3;
+
+export const velocityWeapons = [
+	'usar pistola paralisadora',
+	'usar granada smoke',
+	'jogar óleo escorregadio no chão',
+];
+
+export const strengthWeapons = [
+	'usar teaser super potente',
+	'usar garra para empurrar o zumbi',
+	'utilizar arma de repulsão',
+];
+
+export const intelligenceWeapons = [
+	'criar uma fake news',
+	'tocar musica dissonante',
+	'usar a maiêutica para deixar o zumbi pirado',
+];
 
 export function clearInput(input) {
 	return input

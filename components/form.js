@@ -6,6 +6,13 @@ import getStrength from '../logic/getStrength.js';
 import getVelocity from '../logic/getVelocity.js';
 import getIntelligence from '../logic/getIntelligence.js';
 import getDangerousness from '../logic/getDangerousness.js';
+import getDefenses from '../logic/getDefenses.js';
+import getStrengths from '../logic/getStrengths.js';
+import getWeapons from '../logic/getWeapons.js';
+import getWeakness from '../logic/getWeakness.js';
+import insertDefenses from '../db/insertDefenses.js';
+import insertWeaknesses from '../db/insertWeaknesses.js';
+import insertWeapons from '../db/insertWeapons.js';
 
 const labels = [
 	{ label: 'Idade: ', key: 'age' },
@@ -17,6 +24,30 @@ const labels = [
 	{ label: 'Que Esporte Pratica: ', key: 'sport' },
 	{ label: 'Jogo Preferido: ', key: 'game' },
 ];
+
+async function uploadData(data) {
+	await validate(data);
+
+	const { age, sex, weight, height, blood, music, sport, game } = data;
+
+	const strength = getStrength(age, sex, weight, height, sport);
+	const velocity = getVelocity(age, sex, weight, height, sport);
+	const intelligence = getIntelligence(age, sex, music, sport, game);
+	const dangerousness = getDangerousness(strength, velocity, intelligence);
+
+	data = { ...data, strength, velocity, intelligence, dangerousness };
+	const hostId = await insertHost(data);
+
+	const defenses = getDefenses(
+		getStrengths(strength, velocity, intelligence)
+	);
+	const weakness = getWeakness(strength, velocity, intelligence);
+	const weapons = getWeapons(weakness);
+
+	await insertDefenses(hostId, defenses);
+	await insertWeaknesses(hostId, weakness);
+	await insertWeapons(hostId, weapons);
+}
 
 export default function createForm(screen, menu) {
 	const form = blessed.form({
@@ -90,43 +121,12 @@ export default function createForm(screen, menu) {
 			inputs.map((input) => [input.name, input.value || null])
 		);
 		try {
-			await validate(data);
-
-			const strength = getStrength(
-				data.age,
-				data.sex,
-				data.weight,
-				data.height,
-				data.sport
-			);
-			const velocity = getVelocity(
-				data.age,
-				data.sex,
-				data.weight,
-				data.height,
-				data.sport
-			);
-			const intelligence = getIntelligence(
-				data.age,
-				data.sex,
-				data.music,
-				data.sport,
-				data.game
-			);
-			const dangerousness = getDangerousness(
-				strength,
-				velocity,
-				intelligence
-			);
-
-			data = { ...data, strength, velocity, intelligence, dangerousness };
-
-			const id = await insertHost(data);
+			await uploadData(data);
 			back();
 		} catch (error) {
 			const message = error?.inner
 				? error.inner[0].message
-				: 'Erro ao tentar adicionar! Verifique se todos os dados estão corretos';
+				: `Erro ao tentar adicionar! Verifique se todos os dados estão corretos\n\n${error}`;
 			errorMessage(screen, message);
 		}
 	});
