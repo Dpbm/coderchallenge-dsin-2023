@@ -9,11 +9,11 @@ import random from '../utils/random.js';
 export default function getWeapons(weakness) {
 	const weapons = [];
 
-	if (weakness.includes('velocity'))
+	if (weakness.includes('velocidade'))
 		weapons.push(velocityWeapons[random(totalWeapons)]);
-	if (weakness.includes('strength'))
+	if (weakness.includes('força'))
 		weapons.push(strengthWeapons[random(totalWeapons)]);
-	if (weakness.includes('intelligence'))
+	if (weakness.includes('inteligência'))
 		weapons.push(intelligenceWeapons[random(totalWeapons)]);
 
 	return weapons;

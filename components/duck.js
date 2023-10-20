@@ -1,34 +1,113 @@
 import blessed from 'blessed';
-import getDuckHosts from '../db/getDuckHosts.js';
 import errorMessage from './error.js';
+import getTotalZombies from '../db/getTotalZombies.js';
+import random from '../utils/random.js';
+import getZombieDefenses from '../db/getZombieDefenses.js';
+import getZombieWeakness from '../db/getZombieWeakness.js';
+import getZombieWeapons from '../db/getZombieWeapons.js';
+import getZombieAttributes from '../db/getZombieAttributes.js';
 
 export default async function createDuck(screen, menu) {
-	const hosts = [['id', 'força', 'velocidade', 'inteligência']];
-
-	try {
-		const data = await getDuckHosts();
-		data.forEach((host) =>
-			hosts.push(Object.values(host).map((value) => String(value)))
-		);
-	} catch (error) {
-		errorMessage(screen, 'falha ao tentar pegar os dados!');
+	function noZombies() {
+		menu.show();
+		menu.focus();
+		screen.render();
 	}
 
-	const dataTable = blessed.table({
-		parent: screen,
-		keys: true,
-		scrollable: true,
-		scrollbar: true,
-		pad: 1,
+	let text = 'O pato se depara com o zumbi de número ';
+
+	try {
+		const totalZombies = await getTotalZombies();
+		if (totalZombies == 0) {
+			errorMessage(screen, 'Nenhum hospedeiro foi adicionado!');
+			noZombies();
+			return;
+		}
+
+		const id = random(1, totalZombies);
+
+		const { strength, velocity, intelligence, dangerousness } =
+			await getZombieAttributes(id);
+
+		const weapons = await getZombieWeapons(id);
+		const parsedWeapons = weapons.map(({ weapon }) => weapon).join(' ou ');
+
+		const weaknesses = await getZombieWeakness(id);
+		const parsedWeaknesses = weaknesses
+			.map(({ weakness }) => weakness)
+			.join(' e ');
+
+		const defenses = await getZombieDefenses(id);
+		const parsedDefenses = defenses
+			.map(({ defense }) => defense)
+			.join(' ou ');
+
+		const hasWeaknesses = weaknesses.length;
+
+		text += `${id}.\nSegundo o banco de dados, o zumbi possui força=${strength}, velocidade=${velocity} e inteligência=${intelligence}, possuindo no total periculosidade=${dangerousness}.\n\nPara se defender, ele pode: ${parsedDefenses}.\nSegundo seus dados, ${
+			!hasWeaknesses
+				? 'ele não possui fraquezas, sendo assim o melhor é fugir/se defender!'
+				: ` suas fraquezas são ${parsedWeaknesses}\n${
+						!hasWeaknesses
+							? ''
+							: `Para combater suas fraquezas, há algumas armas para utilizar: ${parsedWeapons}`
+				  }.`
+		}`;
+	} catch (error) {
+		errorMessage(
+			screen,
+			`Falha ao tentar pegar os dados do zumbi!\n\n${error}`
+		);
+		noZombies();
+		return;
+	}
+
+	const progressBarContainer = blessed.box({
+		width: '100%',
+		height: '100%',
+		top: 'center',
 		left: 'center',
-		border: {
-			type: 'line',
-		},
-		data: hosts,
 	});
 
 	blessed.text({
-		parent: dataTable,
+		parent: progressBarContainer,
+		content: 'Obtendo informações do zumbi...',
+		top: '50%-3',
+		left: 'center',
+	});
+
+	const progressBar = blessed.progressbar({
+		parent: progressBarContainer,
+		ch: ' ',
+		height: 3,
+		width: '50%',
+		top: 'center',
+		left: 'center',
+		value: 0,
+		orientation: 'horizontal',
+		style: {
+			fg: 'green',
+			bg: 'black',
+			bar: {
+				bg: 'green',
+			},
+		},
+	});
+
+	const dataContainer = blessed.box({
+		top: 'center',
+		left: 'center',
+		width: '100%',
+		height: '100%',
+	});
+	blessed.text({
+		parent: dataContainer,
+		left: 'center',
+		top: 'center',
+		content: text,
+	});
+	blessed.text({
+		parent: dataContainer,
 		bottom: 1,
 		left: 'center',
 		content: 'Pressione BACKSPACE para voltar',
@@ -39,14 +118,36 @@ export default async function createDuck(screen, menu) {
 		zIndex: 10,
 	});
 
+	let progress = 0;
+	const totalSteps = 100;
+	const updateInterval = 30;
+	const updateProgress = () => {
+		if (progress <= totalSteps) {
+			progressBar.setProgress(progress);
+			screen.render();
+			progress++;
+
+			if (progress > totalSteps) {
+				screen.remove(progressBarContainer);
+				screen.append(dataContainer);
+				screen.render();
+				return;
+			}
+
+			setTimeout(updateProgress, updateInterval);
+		}
+	};
+
+	updateProgress();
+
 	screen.key('backspace', () => {
-		screen.remove(dataTable);
+		screen.remove(progressBarContainer);
+		screen.remove(dataContainer);
 		menu.show();
 		menu.focus();
 		screen.render();
 	});
 
-	screen.append(dataTable);
-	dataTable.focus();
+	screen.append(progressBarContainer);
 	screen.render();
 }

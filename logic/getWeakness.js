@@ -1,7 +1,7 @@
 export default function getWeakness(strength, velocity, intelligence) {
 	const weakness = [];
-	if (strength <= 60) weakness.push('strength');
-	if (velocity <= 60) weakness.push('velocity');
-	if (intelligence <= 60) weakness.push('intelligence');
+	if (strength <= 60) weakness.push('força');
+	if (velocity <= 60) weakness.push('velocidade');
+	if (intelligence <= 60) weakness.push('inteligência');
 	return weakness;
 }
