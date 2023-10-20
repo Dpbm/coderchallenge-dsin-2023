@@ -1,4 +1,4 @@
-import db from './getDB';
+import db from './getDB.js';
 
 export default function closeDB() {
 	db.close();

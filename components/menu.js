@@ -32,11 +32,13 @@ export default function createMenu(screen) {
 	screen.append(options);
 
 	options.on('action', (item) => {
-		const index = menuOptions.indexOf(item.content);
-		const actions = [createForm, createAttributes, createDuck];
-		const action = actions[index];
-		options.hide();
-		action(screen, options);
+		try {
+			const index = menuOptions.indexOf(item.content);
+			const actions = [createForm, createAttributes, createDuck];
+			const action = actions[index];
+			options.hide();
+			action(screen, options);
+		} catch (error) {}
 	});
 
 	options.focus();
