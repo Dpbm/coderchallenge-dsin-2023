@@ -1,5 +1,13 @@
 # DSIN codechallenge 2023
 
+
+
+
+https://github.com/Dpbm/coderchallenge-dsin-2023/assets/75098594/5019fba6-dab3-48fd-b0e8-ce6a0b51b74c
+
+
+
+
 Nesse repositório, você encontrará a minha versão do segundo desafio do `DSIN Coderchallenge 2023`.
 
 Minha ideia para esse projeto foi utilizar `nodejs` e a biblioteca `blessed` para criar uma interface interessante baseada em terminal.
