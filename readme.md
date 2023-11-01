@@ -51,6 +51,18 @@ após tudo instalado, execute o projeto com:
 npm run start
 ```
 
+Se preferir você pode usar a versão em docker rodando:
+
+```bash
+docker run -it dpbm32/coderchallenge-dsin-2023
+```
+
+ou
+
+```bash
+docker-compose run app
+```
+
 `OBS: deixe o terminal em tela cheia para melhor experiência`.
 
 ## navegando pelo software
