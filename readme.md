@@ -7,6 +7,9 @@ https://github.com/Dpbm/coderchallenge-dsin-2023/assets/75098594/5019fba6-dab3-4
 
 
 
+![DockerHub workflow](https://github.com/Dpbm/coderchallenge-dsin-2023/actions/workflows/dockerhub.yml/badge.svg)
+![GHRC workflow](https://github.com/Dpbm/coderchallenge-dsin-2023/actions/workflows/ghrc.yml/badge.svg)
+
 
 Nesse repositório, você encontrará a minha versão do segundo desafio do `DSIN Coderchallenge 2023`.
 
