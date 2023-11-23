@@ -4,3 +4,5 @@ assets
 docs
 *git*
 .tool-versions
+*.env
+*.secrets
